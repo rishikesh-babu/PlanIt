@@ -47,49 +47,47 @@ export default function Event() {
                     <span className="loading loading-spinner text-primary w-10 h-10" />
                 </div>
             )}
-
-            {/* Event Cards */}
-            <div className=" grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            
+            <div className="grid sm:grid-cols-3 lg:grid-cols-3 gap-6 md:gap-8">
                 {events?.map((item) => (
                     <div
                         key={item?.id}
-                        className="grid grid-cols-[100px_1fr] items-center border rounded-lg shadow-sm hover:shadow-md bg-white overflow-hidden transition-shadow duration-300"
+                        className="group relative backdrop-blur-md bg-white/50 border border-gray-200/40 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 rounded-2xl overflow-hidden"
                     >
-                        {/* Left: Date */}
-                        <div className="flex flex-col items-center justify-center bg-gray-100 border-r border-gray-200 py-4 w-full h-full">
-                            <div className="font-bold text-2xl text-gray-800">
-                                {new Date(item?.date).getDate()}
-                            </div>
-                            <div className="text-sm uppercase text-gray-500">
-                                {new Date(item?.date).toLocaleString('default', { month: 'short' })}
+                        {/* Top Color Block */}
+                        <div className="bg-gradient-to-r from-blue-500 to-blue-700 h-32 flex items-center justify-center">
+                            <div className="text-white text-center">
+                                <div className="text-3xl font-extrabold">
+                                    {new Date(item?.date).getDate()}
+                                </div>
+                                <div className="uppercase text-sm tracking-wide -mt-1">
+                                    {new Date(item?.date).toLocaleString('default', { month: 'short' })}
+                                </div>
                             </div>
                         </div>
 
-                        {/* Right: Event Details */}
-                        <div className="p-4 w-full flex flex-col justify-between">
-                            {/* Type & Time */}
-                            <div className="flex items-center justify-between mb-2">
-                                <span className="px-2 py-1 text-xs font-semibold bg-blue-100 text-blue-600 rounded-full capitalize">
-                                    {item?.type}
-                                </span>
-                                <span className="text-sm text-gray-500">{formatTime(item?.time)}</span>
-                            </div>
+                        {/* Content */}
+                        <div className="p-5 space-y-3">
+                            <span className="inline-block px-3 py-1 text-xs font-semibold text-blue-700 bg-blue-100 rounded-full capitalize">
+                                {item?.type}
+                            </span>
 
-                            {/* Title */}
-                            <h2 className="text-lg sm:text-xl font-semibold text-gray-800 mb-2">
+                            <h2 className="text-xl font-bold text-gray-900 line-clamp-2 group-hover:text-blue-700 transition">
                                 {item?.title}
                             </h2>
 
-                            {/* View Button */}
-                            <div className="flex justify-end">
-                                <Link
-                                    to={`/event/${item?.id}`}
-                                    className="px-4 py-2 text-white text-sm font-medium rounded-lg bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 transition-colors shadow-md"
-                                >
-                                    View →
-                                </Link>
-                            </div>
+                            <p className="text-sm flex items-center text-gray-600">
+                                {formatTime(item?.time)}
+                            </p>
                         </div>
+
+                        {/* Button */}
+                        <Link
+                            to={`/event/${item?.id}`}
+                            className="block w-full py-3 text-center font-semibold text-white bg-blue-600 hover:bg-blue-700 transition rounded-b-2xl"
+                        >
+                            View Details
+                        </Link>
                     </div>
                 ))}
             </div>
